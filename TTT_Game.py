@@ -1,10 +1,11 @@
-# Tic Tac Toe Volage
+# Tic Tac Toe Game
 
-# Diese Vorlage enthaelt die Funktionen:
-# print_board, check_win, is_field_empty und check_full
-# so das die alle Tests aus tic_tac_toe_tests.py bestehen.
-# Um ein fertiges Tic Tac Toe Spiel zu machen muss nur noch die Funktion
-# play_game geschrieben werden.
+# Dies ist das fertige Spiel.
+
+# Dieser Import ist nur fuer besseres aussehen.
+# Er ist nicht weiter von bedeutung and dieser Stelle.
+import os
+
 
 # Funktion zum Ausdrucken des Spielbretts
 # Diese Funktion wird verwendet, um das aktuelle Tic Tac Toe-Spielbrett
@@ -75,4 +76,79 @@ def check_full(board):
 # Spielerwechsel, der Eingabe der Züge, der Überprüfung auf einen Gewinner und
 # der Anzeige des aktuellen Spielstatus.
 def play_game():
-    pass
+    # Hierfuer wird der os import benoetigt.
+    # Hier wird der Name des Betriebsystems abgeragt.
+    # Entweder 'nt' fuer Windows wo command dann auf 'cls' gesetzt wird
+    # oder Linux oder MacOS wo commnad dann auf 'clear' gesetzt wird.
+    if os.name == 'nt':
+        command = 'cls'
+    else:
+        command = 'clear'
+
+    # Das Spielbrett
+    board = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
+    
+    # Spieler 1 ist X.
+    player1 = "X"
+    
+    # Spieler 2 ist O.
+    player2 = "O"
+    
+    # currentPlayer entspricht dem Spieler, der gerade am Zug ist.
+    currentPlayer = player1
+
+    while True:
+        # Hier wird command genutzt um die Console zu loeschen.
+        os.system(command)
+
+        # Das Spielbrett wird ausgegeben.
+        print_board(board)
+
+        # Eingabe des Feldes des Spielers. Sie wird direct -1 gerechnet um sie
+        # mit der Spielbrett List compatiebel zu machen.
+        choice = int(input("Spieler " + currentPlayer + ": Waehlen sie ein Feld (1 - 9): ")) - 1
+
+        # Es wird ueberprueft ob das eingegebene Feld frei ist.
+        if is_field_empty(board, choice):
+
+            # Das Feld in der Spielbrettliste bekommt den Wert "X" fuer
+            # Spieler 1 oder "O" fuer Spieler 2.
+            board[choice] = currentPlayer
+
+            # Es wird ueberprueft ob der,
+            # sich gerade am Zug befindende Spieler, gewonnen hat.
+            if check_win(board, currentPlayer):
+
+                # Loeschen der Console und ausgabe des finalen Spielbretts
+                # und des Spielers, der gewonnen hat.
+                os.system(command)
+                print_board(board)
+                print("Spieler " + currentPlayer + " hat gewonnen!!!")
+                break
+
+            # Es wird ueberprueft ob das Spielbretts voll ist.
+            if check_full(board):
+
+                # Loeschen der Console, ausgabe des finalen Spielbretts und
+                # Nachricht das es Unentschieden ist.
+                os.system(command)
+                print_board(board)
+                print("Unentschieden!!!")
+                break
+
+            # Wechseln der Spieler.
+            # Wenn Spieler 1 dran war ist jetzt Spieler 2 und umgekehrt.
+            if currentPlayer == player1:
+                currentPlayer = player2
+            elif currentPlayer == player2:
+                currentPlayer = player1
+
+
+# Hauptfunktion des Programmes.
+# Der try and exept Block sind nur fuer besseres Aussehen.
+try:
+    if __name__ == "__main__":
+        play_game()
+except KeyboardInterrupt:
+    # \n sagt Python nur das es eine Neue Zeile anfangen soll.
+    print("\nVerlassen...")

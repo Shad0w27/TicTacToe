@@ -1,10 +1,10 @@
 # tic_tac_toe_tests.py
 
 # Wichtig!!! tictactoe_main durch den Namen der zutestenden Python-Datei ersetzen (ohne .py)
-from TTT_Vorlage import print_board
-from TTT_Vorlage import check_win
-from TTT_Vorlage import is_field_empty
-from TTT_Vorlage import check_full
+from TTT_Game import print_board
+from TTT_Game import check_win
+from TTT_Game import is_field_empty
+from TTT_Game import check_full
 
 # TESTDATEN: Beispiel Spielstände, um die Funktionen zu testen
 # Testfall 1: Ein vollständig leeres Brett
